@@ -1,0 +1,18 @@
+{
+    "name": "Forex rates feed",
+    "version": "1.0",
+    "description": "Provides live forex exchange rates",
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "permissions": [
+        //"activeTab",
+        "alarms",
+        "storage"
+    ],
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2
+ }
