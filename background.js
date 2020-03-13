@@ -33,27 +33,6 @@ function getQuotes() {
     xhr.send();
 }
 
-function getQuota() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://forex.1forge.com/1.0.3/quota?api_key=vR4j6NNNKdigtTLUJm9pQc8sKE1bzM7N', true);
-    xhr.onload = function(){
-        if (xhr.status >= 200 && xhr.status < 300){
-            console.log(xhr.response);
-            var json = JSON.parse(xhr.response);
-
-            chrome.storage.sync.set({quota: json}, function() {
-                console.log('Quota: ' + json);
-            });
-        } else {
-            console.log('Error while loading quota: ' + xhr.status + ' - ' + xhr.response);
-        }
-    }
-    xhr.onerror = function(){
-        console.log('Error while loading quota: ' + xhr.status + ' - ' + xhr.response);
-    }
-    xhr.send();
-}
-
 function formatTimestamp(timestamp) {
     // Create a new JavaScript Date object based on the timestamp
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
