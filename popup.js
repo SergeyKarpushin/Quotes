@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementById('updateButton');
     button.addEventListener('click', function() {
+        getQuotes();
         loadQuotes();
         console.log('Quotes updated at ' + Date(Date.now()).toString());
     });

@@ -7,12 +7,11 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 chrome.alarms.onAlarm.addListener(function(alarm) {
     console.log("Got an alarm!", alarm);
     getQuotes();
-    //getQuota();
 });
 
 function getQuotes() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://fxmarketapi.com/apilive?api_key=l73i58r11Yvl4-PXFWir&currency=' + pairs.join(), true);
+    xhr.open('GET', 'https://fxmarketapi.com/apilive?api_key=l73i58r11Yvl4-PXFWir&currency=' + pairs.join(), false); //false for synchonous call
     xhr.onload = function(){
         if (xhr.status >= 200 && xhr.status < 300){
             console.log(xhr.response);
