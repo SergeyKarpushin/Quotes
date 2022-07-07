@@ -49,5 +49,5 @@ function formatTimestamp(timestamp) {
     return formattedTime;
 }
 
-chrome.alarms.create('pingQuotes', {periodInMinutes: 30});
+chrome.alarms.create('pingQuotes', {periodInMinutes: 60});
        
