@@ -3,15 +3,13 @@
     "version": "1.0",
     "description": "Provides live forex exchange rates",
     "background": {
-      "scripts": ["background.js"],
-      "persistent": false
+      "service_worker": "background.js"
     },
     "permissions": [
-        //"activeTab",
         "alarms",
         "storage"
     ],
-    "browser_action": {
+    "action": {
         "default_popup": "popup.html"
     },
     "manifest_version": 3

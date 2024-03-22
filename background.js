@@ -1,6 +1,6 @@
 const pairs = ['EURUSD', 'EURRUB', 'USDRUB', 'BTCUSD'];
 
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.action.onClicked.addListener(function(tab) {
     getQuotes();
 });
 
@@ -17,8 +17,8 @@ function getQuotes() {
             console.log(xhr.response);
             var json = JSON.parse(xhr.response);
            
-            chrome.browserAction.setBadgeText({text: json.price[pairs[0]].toFixed(4).substring(2)});
-            chrome.browserAction.setTitle({title: pairs[0] + ' updated at ' + formatTimestamp(json.timestamp)});
+            chrome.action.setBadgeText({text: json.price[pairs[0]].toFixed(4).substring(2)});
+            chrome.action.setTitle({title: pairs[0] + ' updated at ' + formatTimestamp(json.timestamp)});
 
             chrome.storage.sync.set({json: json}, function() {
             });
