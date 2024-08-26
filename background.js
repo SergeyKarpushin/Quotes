@@ -5,31 +5,33 @@ chrome.action.onClicked.addListener(function(tab) {
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
-    console.log("Got an alarm!", alarm);
+    //console.log("Got an alarm!", alarm);
     getQuotes();
 });
 
 function getQuotes() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://fxmarketapi.com/apilive?api_key=l73i58r11Yvl4-PXFWir&currency=' + pairs.join(), false); //false for synchonous call
-    xhr.onload = function(){
-        if (xhr.status >= 200 && xhr.status < 300){
-            console.log(xhr.response);
-            var json = JSON.parse(xhr.response);
-           
-            chrome.action.setBadgeText({text: json.price[pairs[0]].toFixed(4).substring(2)});
-            chrome.action.setTitle({title: pairs[0] + ' updated at ' + formatTimestamp(json.timestamp)});
+	chrome.storage.sync.get({api_key : ''}, (data) => 
+	{
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', 'https://fxmarketapi.com/apilive?api_key=' + data.api_key + '&currency=' + pairs.join(), false); //false for synchonous call
+		xhr.onload = function(){
+			if (xhr.status >= 200 && xhr.status < 300){
+				console.log(xhr.response);
+				var json = JSON.parse(xhr.response);
+			   
+				chrome.action.setBadgeText({text: json.price[pairs[0]].toFixed(4).substring(2)});
+				chrome.action.setTitle({title: pairs[0] + ' updated at ' + formatTimestamp(json.timestamp)});
 
-            chrome.storage.sync.set({json: json}, function() {
-            });
-        } else {
-            console.log('Error while loading quotes: ' + xhr.status + ' - ' + xhr.response);
-        }
-    }
-    xhr.onerror = function(){
-        console.log('Error while loading quotes: ' + xhr.status + ' - ' + xhr.response);
-    }
-    xhr.send();
+				chrome.storage.sync.set({json: json});
+			} else {
+				console.log('Error while loading quotes: ' + xhr.status + ' - ' + xhr.response);
+			}
+		}
+		xhr.onerror = function(){
+			console.log('Error while loading quotes: ' + xhr.status + ' - ' + xhr.response);
+		}
+		xhr.send();
+	});
 }
 
 function formatTimestamp(timestamp) {
